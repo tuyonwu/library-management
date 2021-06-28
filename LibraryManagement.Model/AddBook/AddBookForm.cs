@@ -37,7 +37,7 @@ namespace LibraryManagement.Model.AddBook
         /// </summary>
         [Required(ErrorMessage = "請輸入ISBN")]
         [DisplayName("ISBN")]
-        [StringLength(10, ErrorMessage = "此欄位僅接受10個字")]
+        [StringLength(13, ErrorMessage = "此欄位僅接受13個字")]
         public string Isbn { get; set; }
 
         /// <summary>
