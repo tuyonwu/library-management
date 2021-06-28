@@ -3,7 +3,7 @@
 ## 功能介紹
 
 ### 查詢書籍
-<img src="/LibraryManagement/Content/images/demo/querybook.png" width="90%"/>
+<img src="/LibraryManagement/Content/images/demo/querybook.png" width="80%"/>
 
 ### 查詢書籍詳細資訊
 <img src="/LibraryManagement/Content/images/demo/bookdetail.png" width="80%" />
@@ -21,7 +21,7 @@
 * 確認是否刪除畫面
 <img src="/LibraryManagement/Content/images/demo/deletebook-confirm.jpg" width="80%" />
 
-*2.* 刪除成功畫面
+* 刪除成功畫面
 <img src="/LibraryManagement/Content/images/demo/deletebook.jpg" width="80%" />
 
 
