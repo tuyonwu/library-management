@@ -1,0 +1,123 @@
+﻿@model LibraryManagement.Model.QueryBookForm
+
+@{
+    ViewBag.Title = "QueryBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var queryBookGrid = (List<LibraryManagement.Model.QueryBookGrid>)ViewBag.QueryBookGrid;
+}
+
+<div class="py-4 w-50 m-auto">
+    <h2 class="text-center mb-4 h2-text-underline">查詢書籍</h2>
+    @using (@Html.BeginForm("QueryBook", "Book", FormMethod.Post, new { id = "QueryBookForm", @class = "border rounded-lg p-md-5 shadow-sm" }))
+    {
+
+        @* 類別 *@
+        <div class="mb-3">
+            @Html.LabelFor(model => model.ClassNo)
+            @Html.DropDownListFor(model => model.ClassNo, Model.ClassNoList, "請選擇書籍類別", new { @class = "form-control" })
+        </div>
+
+        @* 書名 *@
+        <div class="mb-3">
+            @Html.LabelFor(model => model.BookName)
+            @Html.TextBoxFor(model => model.BookName, new { @class = "form-control" })
+        </div>
+
+        @* 作者 *@
+        <div class="mb-3">
+            @Html.LabelFor(model => model.Author)
+            @Html.TextBoxFor(model => model.Author, new { @class = "form-control" })
+        </div>
+
+        @* 借閱人 *@
+        <div class="mb-3">
+            @Html.LabelFor(model => model.BookStatus)
+            @Html.DropDownListFor(model => model.BookStatus, Model.BookStatusList, "請選擇借閱狀態", new { @class = "form-control" })
+        </div>
+
+        <div class="text-right mt-5">
+            <button type="submit" class="btn btn-primary mb-2">查詢</button>
+            <button type="reset" class="btn btn-secondary mb-2">清除</button>
+        </div>
+    }
+</div>
+
+@if (ViewBag.IsSearching)
+{
+
+    if (queryBookGrid.Count() == 0)
+    {
+        <hr>
+        <h2 class="text-center">查無符合館藏資料</h2>
+    }
+    else
+    {
+        foreach (var book in queryBookGrid)
+        {
+            <section class="border rounded bg-light p-md-4 mb-3" name="bookData">
+                <a name="bookDetailLink" class="book-link" href="@Url.Action("BookDetail", new { bookId = book.BookId })"><h3>@book.BookName</h3></a>
+                <hr />
+                <div class="row">
+                    <div class="col-9">
+                        @if (book.VersionNum != null)
+                        {<div class="mb-3"> 第 @book.VersionNum 版</div>}
+                        <div class="mb-3">作者：@book.Author</div>
+                        <div class="mb-3">出版資訊：@book.PublishCountry；@book.Publisher；@book.PublishYear</div>
+                        <div class="mb-3">ISBN：@book.Isbn</div>
+                        <div class="mb-3">館藏數量(@book.Quantity)</div>
+                        <table class="table mb-3 table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">館藏地</th>
+                                    <th scope="col">索書號</th>
+                                    <th scope="col">借閱狀態</th>
+                                    <th scope="col">借閱人</th>
+                                    <th scope="col">到期日</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@book.StoreRoom</td>
+                                    <td>@book.StoreId</td>
+                                    <td>@book.BookStatus</td>
+                                    <td>@book.Borrower</td>
+                                    <td>
+                                        @if (@book.ReturnDate.HasValue)
+                                        {@book.ReturnDate.Value.ToString("yyyy/MM/dd")}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <div class="text-right">
+                            @* 借閱紀錄按鈕 *@
+                            <button name="bookRecordBtn" class="btn btn-light text-secondary fs-4" url="@Url.Action("BookRecord", "Book")" book-id="@book.BookId"
+                                    data-toggle="modal" data-target="#popupWindowModal">
+                                <i class="fas fa-book-reader"></i>
+                            </button>
+                            @* 更新書籍按鈕 *@
+                            <a name="updateBtn" class="btn btn-light text-danger fs-4" href="@Url.Action("UpdateBook", "Book", new { bookId = book.BookId })">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @* 刪除書籍按鈕 *@
+                            <button name="deleteBtn" class="btn btn-light text-primary fs-4" book-id="@book.BookId" url="@Url.Action("DeleteBook", "Book")">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+
+        @* Popup Window *@
+        <div class="modal fade" id="popupWindowModal" tabindex="-1" aria-labelledby="popupWindowLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content" id="popupWindow">
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@Scripts.Render("~/Scripts/Book/QueryBook.js")

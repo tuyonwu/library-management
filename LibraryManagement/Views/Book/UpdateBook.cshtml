@@ -1,0 +1,150 @@
+﻿@model LibraryManagement.Model.UpdateBook.UpdateBookForm
+
+@{
+    ViewBag.Title = "UpdateBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="py-4">
+    <h2 class="text-center mb-4 h2-text-underline">編輯書籍</h2>
+
+    <form class="border rounded-lg p-md-5 shadow-sm" id="UpdateBookFrom">
+        <div class="mb-5">
+            <h4 class="mb-3">書籍資訊</h4>
+            <hr>
+            <div class="row mb-3">
+                @Html.HiddenFor(model => model.BookId)
+                @* 類別 *@
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ClassNo, new { @class = "requird" })
+                    @Html.DropDownListFor(model => model.ClassNo, Model.ClassNoList, "請選擇書籍類別", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.ClassNo, "", new { @class = "text-danger" })
+                </div>
+
+                @* 書名 *@
+                <div class="col-md-5">
+                    @Html.LabelFor(model => model.BookName, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.BookName, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                </div>
+
+                @* 作者 *@
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Author, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.Author, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                @* ISBN *@
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Isbn, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.Isbn, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Isbn, "", new { @class = "text-danger" })
+                </div>
+                @* 索書號 *@
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.StoreId, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.StoreId, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.StoreId, "", new { @class = "text-danger" })
+                </div>
+                @* 館藏地 *@
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.StoreRoom, new { @class = "requird" })
+                    @Html.DropDownListFor(model => model.StoreRoom, Model.StoreRoomList, "請選擇館藏地", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.StoreRoom, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                @* 書籍簡介 *@
+                <div class="col">
+                    @Html.LabelFor(model => model.Description, new { @class = "requird" })
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "5", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                @* 版本 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.VersionNum)
+                    @Html.TextBoxFor(model => model.VersionNum, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.VersionNum, "", new { @class = "text-danger" })
+                </div>
+                @* 頁數 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.PageNum, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.PageNum, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.PageNum, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <h4 class="mb-3">出版資訊</h4>
+            <hr>
+            <div class="row mb-3">
+                @* 出版日期 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.PublishDate, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.PublishDate, "{0:yyyy/MM/dd}", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+                </div>
+                @* 出版地 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.PublishCountry, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.PublishCountry, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.PublishCountry, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                @* 出版社 *@
+                <div class="col">
+                    @Html.LabelFor(model => model.Publisher, new { @class = "requird" })
+                    @Html.TextBoxFor(model => model.Publisher, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            <h4 class="mb-3">借閱人資訊</h4>
+            <hr />
+            <div class="row mb-3">
+                @* 借閱狀態 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.BookStatus, new { @class = "requird" })
+                    @Html.DropDownListFor(model => model.BookStatus, Model.BookStatusList, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.BookStatus, "", new { @class = "text-danger" })
+                </div>
+                @* 借閱人 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Borrower)
+                    @Html.DropDownListFor(model => model.Borrower, Model.BorrowerList, "請選擇借閱人", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.Borrower, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                @* 借閱日期 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.BorrowDate)
+                    @Html.TextBoxFor(model => model.BorrowDate, "{0:yyyy/MM/dd}", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.BorrowDate, "", new { @class = "text-danger" })
+                </div>
+                @* 還書日期 *@
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.ReturnDate)
+                    @Html.TextBoxFor(model => model.ReturnDate, "{0:yyyy/MM/dd}", new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group text-right ">
+            <button id="UpdateBtn" url="@Url.Action("UpdateBook", "Book")" class="btn btn-primary mb-2">修改</button>
+        </div>
+    </form>
+
+
+</div>
+
+@Scripts.Render("~/Scripts/Book/UpdateBook.js")

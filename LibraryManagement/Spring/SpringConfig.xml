@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<objects xmlns="http://www.springframework.net">
+
+	<!-- Controller -->
+	<!--type="命名空間.類別名稱, 組件名稱"-->
+	<object id="LibraryManagementController"  type="LibraryManagement.Controllers.BookController, LibraryManagement" singleton="false">
+		<property name="IDropDownBLL" ref="IDropDownBLL" />
+		<property name="IBookBLL" ref="IBookBLL" />
+	</object>
+	
+	<!-- BLL -->
+	<object id="IDropDownBLL" type="LibraryManagement.BLL.DropDownBLL, LibraryManagement.BLL">
+		<property name="IDropDownDAL" ref="IDropDownDAL" />
+	</object>
+	<object id="IBookBLL" type="LibraryManagement.BLL.BookBLL, LibraryManagement.BLL">
+		<property name="IBookDAL" ref="IBookDAL" />
+	</object>
+	
+	<!-- DAL -->
+	<object id="IDropDownDAL" type="LibraryManagement.DAL.DropDownDAL, LibraryManagement.DAL"/>
+	<object id="IBookDAL" type="LibraryManagement.DAL.BookDAL, LibraryManagement.DAL"/>
+</objects>

@@ -1,0 +1,103 @@
+﻿@model LibraryManagement.Model.BookDetail.BookDetailForm
+
+@{
+    ViewBag.Title = "BookDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="py-4 mb-3">
+    <div class="border rounded-lg p-md-5 shadow-sm">
+        <div class="row">
+            @*<div class="col-sm-4">
+                 圖片
+                <div class="border"></div>
+            </div>*@
+            <div class="col-md-12">
+                <div class="fs-3">@Html.DisplayFor(model => model.BookName)</div>
+                <hr>
+                <div class="mb-5">
+                    <div class="row">
+                        @* 作者 *@
+                        @Html.LabelFor(model => model.Author, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-5">
+                            <div class="col-form-label">@Html.DisplayFor(model => model.Author)</div>
+                        </div>
+                        @* 類別 *@
+                        @Html.LabelFor(model => model.ClassName, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-3">
+                            <div class="col-form-label">@Html.DisplayFor(model => model.ClassName)</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @* 出版社 *@
+                        @Html.LabelFor(model => model.Publisher, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-5">
+                            <div class="col-form-label">@Html.DisplayFor(model => model.Publisher)</div>
+                        </div>
+                        @* ISBN *@
+                        @Html.LabelFor(model => model.Isbn, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-3">
+                            <div class="col-form-label">@Html.DisplayFor(model => model.Isbn)</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @* 出版日期 *@
+                        @Html.LabelFor(model => model.PublishDate, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-5">
+                            <div class="col-form-label">@if (Model.PublishDate.HasValue) {@Model.PublishDate.Value.ToString("yyyy/MM/dd")}</div>
+                        </div>
+                        @* 頁數 *@
+                        @Html.LabelFor(model => model.PageNum, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-3">
+                            <div class="col-form-label">@Html.DisplayFor(model => model.PageNum)</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @* 出版地 *@
+                        @Html.LabelFor(model => model.PublishCountry, new { @class = "col-sm-2 col-form-label" })
+                        <div class="col-sm-5">
+                            <div class="col-form-label">@Html.DisplayFor(model => model.PublishCountry)</div>
+                        </div>
+                        @if (Model.VersionNum != null)
+                        {
+                            @* 版本 *@
+                            @Html.LabelFor(model => model.VersionNum, new { @class = "col-sm-2 col-form-label" })
+                            <div class="col-sm-3">
+                                <div class="col-form-label">@Html.DisplayFor(model => model.VersionNum)</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* 內容簡介 *@
+        <label class="fs-5">內容簡介</label>
+        <hr>
+        <div class="col-form-label text-break">@Html.DisplayFor(model => model.Description)</div>
+    </div>
+</div>
+
+<table class="table mb-3 table-bordered">
+    <thead>
+        <tr class="table-primary">
+            @*<th scope="col">#</th>*@
+            <th scope="col">@Html.LabelFor(model => model.StoreRoom)</th>
+            <th scope="col">@Html.LabelFor(model => model.StoreId)</th>
+            <th scope="col">@Html.LabelFor(model => model.BookStatus)</th>
+            <th scope="col">@Html.LabelFor(model => model.Borrower)</th>
+            <th scope="col">@Html.LabelFor(model => model.ReturnDate)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @*<th scope="row">1</th>*@
+            <td>@Html.DisplayFor(model => model.StoreRoom)</td>
+            <td>@Html.DisplayFor(model => model.StoreId)</td>
+            <td>@Html.DisplayFor(model => model.BookStatus)</td>
+            <td>@Html.DisplayFor(model => model.Borrower)</td>
+            <td>@if (Model.ReturnDate.HasValue) {@Model.ReturnDate.Value.ToString("yyyy/MM/dd")}</td>
+        </tr>
+    </tbody>
+</table>
+
